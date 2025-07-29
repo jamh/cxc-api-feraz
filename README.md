@@ -4,11 +4,12 @@ API REST para gestión de Cuentas por Cobrar (CXC) con documentación automátic
 
 ## Características
 
-- ✅ API REST con Spring Boot 3.5.4
+- ✅ API REST de consulta con Spring Boot 3.5.4
 - ✅ Documentación automática con Swagger/OpenAPI 3
 - ✅ Seguridad configurada con Spring Security
-- ✅ Base de datos Oracle con JPA
+- ✅ Base de datos Oracle con JPA (solo lectura)
 - ✅ Lombok para reducir código boilerplate
+- ✅ Paginación y búsquedas avanzadas
 
 ## Configuración de Swagger
 
@@ -38,14 +39,31 @@ API REST para gestión de Cuentas por Cobrar (CXC) con documentación automátic
 
 ## Endpoints disponibles
 
-### Gestión de Clientes
-- `GET /api/clientes` - Obtener todos los clientes
-- `GET /api/clientes/{id}` - Obtener cliente por ID
-- `POST /api/clientes` - Crear nuevo cliente
-- `PUT /api/clientes/{id}` - Actualizar cliente
-- `DELETE /api/clientes/{id}` - Eliminar cliente
+### Consulta de Clientes (API REST Paginada - Solo Lectura)
+- `GET /api/clientes/{idCompania}` - Obtener clientes paginados por compañía
+- `GET /api/clientes/{idCompania}/{idCliente}` - Obtener cliente específico por ID
+- `GET /api/clientes/{idCompania}/buscar/nombre` - Buscar por nombre o razón social
+- `GET /api/clientes/{idCompania}/buscar/rfc` - Buscar por RFC
+- `GET /api/clientes/{idCompania}/buscar/referencia` - Buscar por referencia
+- `GET /api/clientes/{idCompania}/buscar/email` - Buscar por email
+- `GET /api/clientes/{idCompania}/buscar/clasificacion` - Buscar por clasificación
+- `GET /api/clientes/{idCompania}/buscar/grupo` - Buscar por grupo
+- `GET /api/clientes/{idCompania}/buscar/cobrador` - Buscar por cobrador
+- `GET /api/clientes/{idCompania}/buscar/avanzado` - Búsqueda avanzada con múltiples criterios
+- `GET /api/clientes/{idCompania}/estadisticas/total` - Obtener total de clientes
+- `GET /api/clientes/{idCompania}/catalogos/clasificaciones` - Obtener clasificaciones disponibles
+- `GET /api/clientes/{idCompania}/catalogos/grupos` - Obtener grupos disponibles
+- `GET /api/clientes/{idCompania}/catalogos/cobradores` - Obtener cobradores disponibles
 
 ## Configuración
+
+### Base de Datos Oracle 19c
+- **Servidor**: 217.160.55.171:1521
+- **SID**: rentas
+- **Usuario**: api1radm
+- **Contraseña**: pXA*3234G
+- **Driver**: ojdbc8 versión 12.2.0.1 (compatible con Oracle 12c/19c)
+- **Nota**: Configurado para evitar triggers problemáticos (CHANGE_DATE_FORMAT)
 
 ### application.properties
 ```properties
@@ -58,6 +76,17 @@ springdoc.swagger-ui.tagsSorter=alpha
 # Servidor
 server.port=8080
 server.servlet.context-path=/api
+
+# Base de Datos Oracle
+spring.datasource.url=jdbc:oracle:thin:@217.160.55.171:1521:rentas
+spring.datasource.username=api1radm
+spring.datasource.password=pXA*3234G
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+
+# JPA/Hibernate
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
 ```
 
 ### Seguridad
@@ -75,12 +104,14 @@ server.servlet.context-path=/api
 
 ## Próximos pasos
 
-1. Implementar modelos de datos (entidades JPA)
-2. Agregar servicios de negocio
-3. Implementar validaciones
-4. Configurar autenticación JWT
-5. Agregar más endpoints según requerimientos
-6. Configurar base de datos Oracle
+1. ✅ Configurar base de datos Oracle
+2. ✅ Implementar modelos de datos (entidades JPA)
+3. ✅ Agregar servicios de negocio
+4. ✅ Implementar API REST de consulta paginada
+5. ✅ Configurar para evitar triggers problemáticos
+6. Implementar validaciones
+7. Configurar autenticación JWT
+8. Agregar más endpoints de consulta según requerimientos
 
 ## Tecnologías utilizadas
 
@@ -88,6 +119,7 @@ server.servlet.context-path=/api
 - **Java**: 21
 - **Spring Security**: Para autenticación y autorización
 - **Spring Data JPA**: Para persistencia de datos
-- **Oracle Database**: Base de datos
+- **Oracle Database**: 19c
+- **Oracle JDBC Driver**: ojdbc8 12.2.0.1
 - **Swagger/OpenAPI**: Documentación de API
 - **Lombok**: Reducción de código boilerplate 
