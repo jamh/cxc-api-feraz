@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @Configuration
-public class Oracle12cConfig {
+public class OracleConfig {
 
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {

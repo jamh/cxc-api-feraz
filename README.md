@@ -57,12 +57,12 @@ API REST para gestión de Cuentas por Cobrar (CXC) con documentación automátic
 
 ## Configuración
 
-### Base de Datos Oracle 19c
+### Base de Datos Oracle
 - **Servidor**: 217.160.55.171:1521
 - **SID**: rentas
 - **Usuario**: api1radm
 - **Contraseña**: pXA*3234G
-- **Driver**: ojdbc8 versión 12.2.0.1 (compatible con Oracle 12c/19c)
+- **Driver**: ojdbc11 (versión automática de Spring Boot)
 - **Nota**: Configurado para evitar triggers problemáticos (CHANGE_DATE_FORMAT)
 
 ### application.properties
@@ -119,7 +119,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
 - **Java**: 21
 - **Spring Security**: Para autenticación y autorización
 - **Spring Data JPA**: Para persistencia de datos
-- **Oracle Database**: 19c
-- **Oracle JDBC Driver**: ojdbc8 12.2.0.1
+- **Oracle Database**: Oracle
+- **Oracle JDBC Driver**: ojdbc11 (automático)
 - **Swagger/OpenAPI**: Documentación de API
 - **Lombok**: Reducción de código boilerplate 

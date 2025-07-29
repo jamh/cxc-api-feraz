@@ -42,7 +42,7 @@ public class DatabaseConfig {
         config.setIdleTimeout(600000);
         config.setMaxLifetime(1800000);
         
-        // Configuración específica para Oracle 12c
+        // Configuración específica para Oracle
         config.addDataSourceProperty("oracle.jdbc.timezoneAsRegion", "false");
         config.addDataSourceProperty("oracle.jdbc.fanEnabled", "false");
         config.addDataSourceProperty("oracle.net.CONNECT_TIMEOUT", "10000");
